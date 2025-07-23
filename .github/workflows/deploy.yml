@@ -1,4 +1,4 @@
-name: 🚀 FTP Deploy
+name: FTP Deploy
 
 on:
   push:
@@ -7,16 +7,19 @@ on:
 
 jobs:
   ftp-deploy:
-    name: 📦 Upload to Server via FTP
+    name: Upload to Server via FTP
     runs-on: ubuntu-latest
-    steps:
-      - name: Get latest code
-        uses: actions/checkout@v2
 
-      - name: 📤 Deploy to FTP server
-        uses: SamKirkland/ftp-deploy-action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /html/map360/
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Upload with FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: 150.60.210.69
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        port: 21
+        protocol: ftp
+        server-dir: /html/map360/
